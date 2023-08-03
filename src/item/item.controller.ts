@@ -5,7 +5,7 @@ import { CreateItemDto } from './dto/create-item.dto';
 import { Item } from './schemas/item.schema';
 import { GetItemsDto } from './dto/get-items.dto';
 
-@Controller('item')
+@Controller('items')
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 

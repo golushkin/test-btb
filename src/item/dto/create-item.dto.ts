@@ -7,12 +7,14 @@ import {
   IsString,
   IsUrl,
 } from 'class-validator';
-import { CategoryEnum } from '../enums/category.enum';
 import { LocationEnum } from '../enums/location.enum';
+import { IsEntityExists } from '../../shared/validation/is-entity-exists.decorator';
+import { CollecitonNameEnum } from '../../shared/enums/collection-name.enum';
 
 export class CreateItemDto {
-  @IsEnum(CategoryEnum)
-  category: CategoryEnum;
+  @IsEntityExists(CollecitonNameEnum.CATEGORIES)
+  @IsMongoId()
+  categoryId: string;
 
   @IsString()
   @IsNotEmpty()
@@ -32,6 +34,7 @@ export class CreateItemDto {
   @IsOptional()
   tags?: string[];
 
+  @IsEntityExists(CollecitonNameEnum.ITEMS)
   @IsMongoId()
   @IsOptional()
   itemId?: string;

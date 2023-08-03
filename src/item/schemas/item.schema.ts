@@ -1,12 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { LocationEnum } from '../enums/location.enum';
-import { CategoryEnum } from '../enums/category.enum';
+import { CollecitonNameEnum } from '../../shared/enums/collection-name.enum';
+import { Category } from '../../category/schemas/category.schema';
 
-@Schema()
+@Schema({ collection: CollecitonNameEnum.ITEMS })
 export class Item {
-  @Prop({ enum: CategoryEnum })
-  category: CategoryEnum;
+  @Prop({ type: Types.ObjectId, ref: Category.name })
+  categoryId: Types.ObjectId;
 
   @Prop()
   title: string;
@@ -30,4 +31,6 @@ ItemSchema.pre('save', function () {
   this.itemId = this.itemId
     ? new Types.ObjectId(this.itemId as unknown as string)
     : undefined;
+
+  this.categoryId = new Types.ObjectId(this.categoryId as unknown as string);
 });
