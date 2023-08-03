@@ -1,0 +1,13 @@
+services:
+  mongodb:
+    image: mongo:5.0.3
+    container_name: mongodb
+    ports:
+      - ${DB_PORT}:27017
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
+    
